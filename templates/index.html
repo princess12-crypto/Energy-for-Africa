@@ -1,0 +1,185 @@
+ <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <!-- SEO Meta Tags -->
+        <meta name="descriptpion" content="TotalEnergies is committed to sustainable energy solutions through renewable resources, oil & gas exploration, and energy storage."/>
+        <meta name="keywords" content="TotalEnergies, sustainable energy, renewables, oil and gas, energy storage"/>
+        <title>TotalEnergies - Official site</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
+        </head>
+        <body>
+            <!--Header-->
+            <header class="container">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='myphoto.jpg') }}" alt="TotalEnergies photo" style="width: 200px; height: 200px;"/>
+                </div>
+                 <!-- Hamburger menu button -->
+                <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+                    &#9776; <!-- This is the Unicode hamburger icon -->
+                </button>
+                <!-- Navigation -->
+                <nav>
+                  <ul class="navbar">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#operations">Our operations</a></li>
+                    <li><a href="#newsroom">Newsroom</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#home">Home</a></li>
+                  </ul>
+                </nav> 
+             </header>
+             <!-- Hero Section -->
+             <section class="hero" style="background: url('{{ url_for('static', filename='banner.jpg') }}') no-repeat center center/cover;">
+                  <div class="overlay">
+                    <h2>Our Company</h2>
+                    <a href="#about" class="link">TotalEnergies at a glance</a>
+                    <a href="#operations" class="btn">Discover our projects</a>
+                  </div>
+             </section>
+             <!-- Main Content --> 
+             <section id="home" class="home-section fade-in-section flip-item">
+                  <div class="container">
+                    <h1>Home</h1> <!-- Explicitly adding the "Home" title -->
+                    <p>Welcome to TotalEnergies!</p>
+                    <h2>Explore our operations and latest updates.</h2>
+                    <p>Innovative and sustainable energy solutions.</p>
+                    <!-- Video Section -->
+                    <video width="640" height="360" controls>
+                         <source src="{{ url_for('static', filename='video.mp4') }}" type="video/mp4">
+                         Your browser does not support the video tag.
+                    </video>
+                  </div>
+             </section>
+             <section id="about" class="about-section fade-in-section flip-item">
+                  <div class="container">
+                    <h1>About Us</h1>
+                    <p>We are committed to providing clean, sustainable energy to drive a better future.</p>
+                  </div>
+             </section>
+             <section id="operations" class="operations-section fade-in-section flip-item">
+                  <div class="container">
+                    <h1>Our operations</h1>
+                    <p>At TotalEnergies, we lead the global energy transition by delivering innovative and sustainable solutions accross multiple sectors.</p>
+                    <h2>Core Areas of Operation</h2>
+                  <ul>
+                       <li><strong>Renewable Energy:</strong> Investing in solar, wind, and bioenergy to power the future.</li> 
+                       <li><strong>Oil & Gas Exploration:</strong> Utilizing advanced technologies for efficient resource management.</li>
+                       <li><strong>Energy Storage:</strong> Developing cutting-edge storage solutions for reliable energy supply.</li>
+                       <li><strong>Infrastucture & Distribution:</strong> Optimizing logistics to ensure seamless energy delivery worldwide.</li>
+                  </ul>
+                    <h2>Commitment to Sustainability</h2>
+                    <p>We are dedicated  to reducing carbon emissions and implementing eco-friendly practices while meeting the growing demand for energy worldwide.</p>
+                  </div>
+             </section>
+             <section id="newsroom" class="newsroom-section fade-in-section flip-item">
+                  <div class="container">
+                      <h1>Newsroom</h1>
+                      <p>Stay updated with the latest news,  press releases,  and insights from TotalEnergies.</p>
+                  <div class="news-item">
+                      <h2>New Renewable Energy Projects Announced</h2>
+                      <p>We are expanding our clean energy portfolio with new solar and wind projects.</p>
+                      <a href="#">Read more</a>
+                  </div>
+                  <div class="news-item">
+                       <h2>TotalEnergies Achieves Major Sustainability Milestone</h2>
+                       <p>Our latest inovations contribute to reducing carbon emissions globally.</p> 
+                       <a href="#">Read More</a>
+                  </div>
+                  <div class="news-item">
+                       <h2>Global Energy Conference: TotalEnergies keynote</h2>
+                       <p>Our CEO discusses the future of energy transition at the annual industry summit.</p>
+                       <a href="#">Read More</a>
+                  </div> <!-- close container -->
+             </section> <!-- close section -->
+             <section id="careers" class="careers-section fade-in-section flip-item">
+                  <div class="container">
+                       <h1>Careers</h1>
+                       <p>Join TotalEnergies and explore exciting career opportunities with us.</p>
+                       <ul>
+                          <li>Engineering & Technical Roles</li>
+                          <li>Environmental & Sustainability Positions</li>
+                          <li>Project Management & Leadership Roles</li>
+                          <li>Renewable Energy Specialists</li>
+                        </ul>
+                        <a href="#" class="apply-button">Apply Now</a>
+                  </div>
+             </section>
+             <section id="contact" class="contact-section fade-in-section flip-item">
+                  <div class="container">
+                       <h1>Contact</h1>
+                       <p>Have questions? Reach out to TotalEnergies.</p>
+                       {% with messages = get_flashed_messages() %}
+                          {% if messages %}
+                            <ul class="fash-messages">
+                              {% for message in messages %}
+                                <li>{{ message }}</li>
+                              {% endfor %}
+                            </ul>
+                          {% endif %}
+                        {% endwith %}
+                       <form id="contact-form" method="POST" action="/submit-form">
+                           <label for="name">Name:</label>
+                           <input type="text" id="name" name="name" required>
+                           <label for="email">Email:</label>
+                           <input type="email" id="email" name="email" required>
+                           <label for="message">Message:</label>
+                           <textarea id="message" name="message" required></textarea>
+                           <button type="submit">Send Message</button>
+                           <p id="form-status"></p>
+                       </form>
+                   </div>
+             </section>
+             <section id="services" class="services-section fade-in-section flip-item">
+                   <div class="container">
+                        <h1>Services</h1>
+                        <p>Discover how TotalEnergies is driving innovation across multiple energy sectors.</p>
+                        <ul>
+                           <li>Renewable Energy Solutions (Solar, Wind, Bioenergy)</li>
+                           <li>Oil & Gas Exploration and Production</li>
+                           <li>Advanced Energy Storage Technologies</li>
+                           <li>Environmental Sustainability & Carbon Reduction</li>
+                        </ul>
+                        <a href="#" class="learn-more-button">Learn More</a>
+                   </div>
+             </section>
+              <!-- Image Gallery Section -->
+             <section id="gallery" class="gallery-section fade-in-section flip-item">
+               <div class="container">
+               <h1>Our Gallery</h1>
+               <p>Explore our projects and moments in images.</p>
+               <ul class="image-gallery">
+                    <li>
+                    <img src="{{ url_for('static', filename='myphoto1.jpg') }}" alt="TotalEnergies photo">
+                    </li>
+                    <li>
+                    <img src="{{ url_for('static', filename='myphoto2.jpg') }}" alt="TotalEnergies photo">
+                    </li>
+                    <li>
+                    <img src="{{ url_for('static', filename='myphoto3.jpg') }}" alt="TotalEnergies photo">
+                    </li>
+                    <li>
+                    <img src="{{ url_for('static', filename='myphoto4.jpg') }}" alt="TotalEnergies photo">
+                    </li>
+               </ul>
+               </div>
+               </section>
+             <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+             <!-- Footer -->
+             <footer class="container">
+                  <p>&copy; 2025 TotalEnergies. All rights reserved.</p>
+             </footer>
+        </body>
+ </html>
+                
+
+                
+
+                
+
+
+
