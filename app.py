@@ -1,3 +1,4 @@
+print("✅ Flask app is starting...")
 from flask import Flask, render_template, request, redirect, flash, url_for
 import mysql.connector
 import smtplib
@@ -12,14 +13,14 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = 'a3d892249e2d0ecb3c11cd477cc2fa10' # Required for flashing messages 
 # MySQL Database connection setup
-conn = mysql.connector.connect(
-    host=os.getenv("MYSQLHOST"),
-    user=os.getenv("MYSQLUSER"),
-    password=os.getenv("MYSQLPASSWORD"),
-    database=os.getenv("MYSQLDATABASE"),
-    port=os.getenv("MYSQLPORT")
-)
-cursor = conn.cursor()
+#conn = mysql.connector.connect(
+#   host=os.getenv("MYSQLHOST"),
+#   user=os.getenv("MYSQLUSER"),
+#    password=os.getenv("MYSQLPASSWORD"),
+#    database=os.getenv("MYSQLDATABASE"),
+#   port=os.getenv("MYSQLPORT")
+#)
+#cursor = conn.cursor()
 # Function to send email using Brevo SMTP
 def send_email(to_email, subject, content):
      # Load SMTP server from environment
@@ -58,10 +59,10 @@ def submit_form():
      # Print to console for testing
      print(f"Name: {name}, Email: {email}, Message: {user_message}")
      # Insert data into MySQL
-     sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
-     values = (name, email, user_message)
-     cursor.execute(sql, values)
-     conn.commit()
+     #sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
+     #values = (name, email, user_message)
+     #cursor.execute(sql, values)
+     #conn.commit()
      # Send confirmation email to user 
      user_email_content = f"""
      <p>Hi {name},</p>
