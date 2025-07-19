@@ -12,18 +12,18 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
 # MySQL Database connection setup
-try:
-    conn = mysql.connector.connect(
-        host=os.getenv("MYSQLHOST"),
-        user=os.getenv("MYSQLUSER"),
-        password=os.getenv("MYSQLPASSWORD"),
-        database=os.getenv("MYSQLDATABASE"),
-        port=int(os.getenv("MYSQLPORT"))
-    )
-    cursor = conn.cursor()
-    print("Connected to MySQL database")
-except Exception as e:
-    print(f"Failed to connect to MySQL: {e}")
+#try:
+#    conn = mysql.connector.connect(
+#        host=os.getenv("MYSQLHOST"),
+#        user=os.getenv("MYSQLUSER"),
+#        password=os.getenv("MYSQLPASSWORD"),
+#        database=os.getenv("MYSQLDATABASE"),
+#        port=int(os.getenv("MYSQLPORT"))
+#   )
+#    cursor = conn.cursor()
+#    print("Connected to MySQL database")
+# except Exception as e:
+#    print(f"Failed to connect to MySQL: {e}")
 # Function to send email using Brevo SMTP
 def send_email(to_email, subject, content):
     smtp_server = os.getenv("BREVO_SMTP_SERVER")
@@ -57,10 +57,10 @@ def submit_form():
     message = request.form.get('message')
     print(f"Form submitted: Name={name}, Email={email}, Message={message}")
     # Save form to MySQL
-    sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
-    values = (name, email, message)
-    cursor.execute(sql, values)
-    conn.commit()
+    #sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
+    #values = (name, email, message)
+    #cursor.execute(sql, values)
+    #conn.commit()
     # Email to user
     user_content = f"""
     <p>Hello {name},</p>
