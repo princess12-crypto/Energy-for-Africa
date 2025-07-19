@@ -13,10 +13,11 @@ app = Flask(__name__)
 app.secret_key = 'a3d892249e2d0ecb3c11cd477cc2fa10' # Required for flashing messages 
 # MySQL Database connection setup
 conn = mysql.connector.connect(
-    host="localhost",   
-    user="root",
-    password="Total@2025!",
-    database="totalenergies_db"
+    host=os.getenv("MYSQLHOST"),
+    user=os.getenv("MYSQLUSER"),
+    password=os.getenv("MYSQLPASSWORD"),
+    database=os.getenv("MYSQLDATABASE"),
+    port=os.getenv("MYSQLPORT")
 )
 cursor = conn.cursor()
 # Function to send email using Brevo SMTP
@@ -81,5 +82,6 @@ def submit_form():
      flash("Your message has been received. Thank you!")
      return redirect(url_for('home'))
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Use Railway's assigned port
+    app.run(host='0.0.0.0', port=port)
      
