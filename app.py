@@ -52,34 +52,33 @@ def home():
 # Form submission route
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
-    name = request.form.get('name')
-    email = request.form.get('email')
-    message = request.form.get('message')
-    print(f"Form submitted: Name={name}, Email={email}, Message={message}")
-    # Save form to MySQL
-    #sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
-    #values = (name, email, message)
-    #cursor.execute(sql, values)
-    #conn.commit()
-    # Email to user
-    user_content = f"""
-    <p>Hello {name},</p>
-    <p>Thank you for contacting TotalEnergies. We received your message:</p>
-    <blockquote>{message}</blockquote>
-    <p>We will reply soon.</p>
-    <p>— TotalEnergies Nigeria</p>
-    """
-    send_email(email, "Message Received - TotalEnergies", user_content)
-    # Email to admin
-    admin_content = f"""
-    <h3>New Contact Form Submission</h3>
-    <p><strong>Name:</strong> {name}</p>
-    <p><strong>Email:</strong> {email}</p>
-    <p><strong>Message:</strong> {message}</p>
-    """
-    send_email("celestinejustice4@gmail.com", "New Contact Form Message", admin_content)
-    flash("Your message has been submitted successfully.")
-    return redirect(url_for('home'))
+    try:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        print(f"Form submitted: Name={name}, Email={email}, Message={message}")
+        # Email to user
+        user_content = f"""
+        <p>Hello {name},</p>
+        <p>Thank you for contacting TotalEnergies. We received your message:</p>
+        <blockquote>{message}</blockquote>
+        <p>We will reply soon.</p>
+        <p>— TotalEnergies Nigeria</p>
+        """
+        send_email(email, "Message Received - TotalEnergies", user_content)
+        # Email to admingiy
+        admin_content = f"""
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> {name}</p>
+        <p><strong>Email:</strong> {email}</p>
+        <p><strong>Message:</strong> {message}</p>
+        """
+        send_email("celestinejustice4@gmail.com", "New Contact Form Message", admin_content)
+        flash("Your message has been submitted successfully.")
+        return redirect(url_for('home'))
+    except Exception as e:
+        print(f"Error in submit_form: {e}")
+        return "Something went wrong. Please try again later.", 500
 # Start the Flask app
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
