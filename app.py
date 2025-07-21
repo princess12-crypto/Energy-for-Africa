@@ -108,17 +108,21 @@ def login():
             flash("Invalid login credentials")
             return redirect(url_for('login'))
     return render_template('login.html')
-# 🧾 Admin Dashboard Route
+# 🧾 Admin Dashboard Route with Debugging
 @app.route('/admin')
 def admin():
     if not session.get('admin_logged_in'):
+        print("🔒 Admin access denied. Redirecting to login.")
         return redirect(url_for('login'))
+    print("📊 Admin logged in. Loading messages from database...")
     try:
         cursor.execute("SELECT name, email, message FROM contact_form ORDER BY id DESC")
         messages = cursor.fetchall()
+        print(f"✅ Retrieved {len(messages)} messages from the database.")
         return render_template('admin.html', messages=messages)
     except Exception as e:
-        return f"❌ Failed to load admin data: {e}"
+        print(f"❌ Error in /admin route: {e}")
+        return "An error occurred while loading the admin dashboard."
 # 🚪 Logout Route
 @app.route('/logout')
 def logout():
