@@ -33,7 +33,7 @@ try:
         database=os.getenv("MYSQLDATABASE"),
         port=int(os.getenv("MYSQLPORT"))
     )
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
     print("✅ Connected to MySQL successfully")
 except Exception as e:
     print(f"❌ Failed to connect to MySQL: {e}")
