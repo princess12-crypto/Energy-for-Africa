@@ -12,6 +12,8 @@ load_dotenv()
 # 🔐 Admin Login Credentials 👇
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "password")
+print("✅ DEBUG: Loaded Admin Username:", ADMIN_USERNAME)
+print("✅ DEBUG: Loaded Admin Password:", ADMIN_PASSWORD)
 # 🚀 Flask app setup
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY")
