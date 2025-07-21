@@ -48,6 +48,8 @@
             <button class="logout-btn">Logout 🔒</button>
         </form>
     </h1>
+     <!-- ✅ Add this -->
+    <p>Total Messages: {{ messages|length }}</p>
     <table>
         <thead>
             <tr>
@@ -57,7 +59,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for entry in entries %}
+            {% for entry in messages %}
             <tr>
                 <td>{{ entry[0] }}</td>
                 <td>{{ entry[1] }}</td>
