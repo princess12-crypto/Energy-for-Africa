@@ -103,6 +103,11 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
+         # ✅ Debug prints for login
+        print("🔐 Submitted Username:", username)
+        print("🔐 Submitted Password:", password)
+        print("🔐 Expected Username:", ADMIN_USERNAME)
+        print("🔐 Expected Password:", ADMIN_PASSWORD)
         if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
             session['admin_logged_in'] = True
             return redirect(url_for('admin'))
