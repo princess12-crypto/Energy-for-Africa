@@ -130,6 +130,23 @@ def admin():
     except Exception as e:
         print(f"❌ Error in /admin route: {e}")
         return "An error occurred while loading the admin dashboard."
+# 📩 Reply Route (Admin sends email reply to a user)
+@app.route('/reply', methods=['POST'])
+def reply():
+    if not session.get('admin_logged_in'):
+        flash("You must be logged in to reply.")
+        return redirect(url_for('login'))
+    to_email = request.form.get('to_email')
+    reply_subject = request.form.get('reply_subject')
+    reply_message = request.form.get('reply_message')
+    print(f"✉️ Sending reply to: {to_email} | Subject: {reply_subject}")
+    try:
+        send_email(to_email, reply_subject, reply_message)
+        flash("Reply sent successfully.")
+    except Exception as e:
+        print(f"❌ Failed to send reply: {e}")
+        flash("An error occurred while sending the reply.")
+    return redirect(url_for('admin'))
 # 🚪 Logout Route
 @app.route('/logout')
 def logout():

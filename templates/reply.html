@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Reply</title>
+</head>
+<body>
+    <h1>Reply to {{ name }}</h1>
+    <form method="POST" action="{{ url_for('reply') }}">
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <label>Your Message:</label><br>
+        <textarea name="message" rows="8" cols="50" required></textarea><br><br>
+        <button type="submit">Send Reply</button>
+    </form>
+</body>
+</html>
