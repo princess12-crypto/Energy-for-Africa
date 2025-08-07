@@ -5,16 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
         <!-- SEO Meta Tags -->
-        <meta name="descriptpion" content="TotalEnergies is committed to sustainable energy solutions through renewable resources, oil & gas exploration, and energy storage."/>
-        <meta name="keywords" content="TotalEnergies, sustainable energy, renewables, oil and gas, energy storage"/>
-        <title>TotalEnergies - Official site</title>
+        <meta name="description" content="Energy for Africa is committed to sustainable energy solutions through renewable resources, oil & gas exploration, and energy storage."/>
+        <meta name="keywords" content="Energy for Africa, sustainable energy, renewables, oil and gas, energy storage"/>
+        <title>Energy for Africa - Official site</title>
+        <!-- ✅ Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css')}}">
         </head>
         <body>
             <!--Header-->
             <header class="container">
                 <div class="logo">
-                    <img src="{{ url_for('static', filename='myphoto.jpg') }}" alt="TotalEnergies photo" style="width: 200px; height: 200px;"/>
+                    <img src="{{ url_for('static', filename='myphoto.jpg') }}" alt="Energy for Africa photo" style="width: 200px; height: 200px;"/>
                 </div>
                  <!-- Hamburger menu button -->
                 <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
@@ -23,13 +25,13 @@
                 <!-- Navigation -->
                 <nav>
                   <ul class="navbar">
+                    <li><a href="#home">Home</a></li>
                     <li><a href="#about">About Us</a></li>
-                    <li><a href="#operations">Our operations</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#operations">Our Operations</a></li>
                     <li><a href="#newsroom">Newsroom</a></li>
                     <li><a href="#careers">Careers</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#home">Home</a></li>
                   </ul>
                 </nav> 
              </header>
@@ -37,7 +39,7 @@
              <section class="hero" style="background: url('{{ url_for('static', filename='banner.jpg') }}') no-repeat center center/cover;">
                   <div class="overlay">
                     <h2>Our Company</h2>
-                    <a href="#about" class="link">TotalEnergies at a glance</a>
+                    <a href="#about" class="link">Energy for Africa at a glance</a>
                     <a href="#operations" class="btn">Discover our projects</a>
                   </div>
              </section>
@@ -45,7 +47,7 @@
              <section id="home" class="home-section fade-in-section flip-item">
                   <div class="container">
                     <h1>Home</h1> <!-- Explicitly adding the "Home" title -->
-                    <p>Welcome to TotalEnergies!</p>
+                    <p>Welcome to Energy for Africa!</p>
                     <h2>Explore our operations and latest updates.</h2>
                     <p>Innovative and sustainable energy solutions.</p>
                     <!-- Video Section -->
@@ -64,13 +66,13 @@
              <section id="operations" class="operations-section fade-in-section flip-item">
                   <div class="container">
                     <h1>Our operations</h1>
-                    <p>At TotalEnergies, we lead the global energy transition by delivering innovative and sustainable solutions accross multiple sectors.</p>
+                    <p>At Energy for Africa, we lead the global energy transition by delivering innovative and sustainable solutions across multiple sectors.</p>
                     <h2>Core Areas of Operation</h2>
                   <ul>
                        <li><strong>Renewable Energy:</strong> Investing in solar, wind, and bioenergy to power the future.</li> 
                        <li><strong>Oil & Gas Exploration:</strong> Utilizing advanced technologies for efficient resource management.</li>
                        <li><strong>Energy Storage:</strong> Developing cutting-edge storage solutions for reliable energy supply.</li>
-                       <li><strong>Infrastucture & Distribution:</strong> Optimizing logistics to ensure seamless energy delivery worldwide.</li>
+                       <li><strong>Infrastructure & Distribution:</strong> Optimizing logistics to ensure seamless energy delivery worldwide.</li>
                   </ul>
                     <h2>Commitment to Sustainability</h2>
                     <p>We are dedicated  to reducing carbon emissions and implementing eco-friendly practices while meeting the growing demand for energy worldwide.</p>
@@ -79,19 +81,19 @@
              <section id="newsroom" class="newsroom-section fade-in-section flip-item">
                   <div class="container">
                       <h1>Newsroom</h1>
-                      <p>Stay updated with the latest news,  press releases,  and insights from TotalEnergies.</p>
+                      <p>Stay updated with the latest news,  press releases,  and insights from Energy for Africa.</p>
                   <div class="news-item">
                       <h2>New Renewable Energy Projects Announced</h2>
                       <p>We are expanding our clean energy portfolio with new solar and wind projects.</p>
                       <a href="#">Read more</a>
                   </div>
                   <div class="news-item">
-                       <h2>TotalEnergies Achieves Major Sustainability Milestone</h2>
-                       <p>Our latest inovations contribute to reducing carbon emissions globally.</p> 
+                       <h2>Energy for Africa Achieves Major Sustainability Milestone</h2>
+                       <p>Our latest innovations contribute to reducing carbon emissions globally.</p> 
                        <a href="#">Read More</a>
                   </div>
                   <div class="news-item">
-                       <h2>Global Energy Conference: TotalEnergies keynote</h2>
+                       <h2>Global Energy Conference: Energy for Africa keynote</h2>
                        <p>Our CEO discusses the future of energy transition at the annual industry summit.</p>
                        <a href="#">Read More</a>
                   </div> <!-- close container -->
@@ -99,7 +101,7 @@
              <section id="careers" class="careers-section fade-in-section flip-item">
                   <div class="container">
                        <h1>Careers</h1>
-                       <p>Join TotalEnergies and explore exciting career opportunities with us.</p>
+                       <p>Join Energy for Africa and explore exciting career opportunities with us.</p>
                        <ul>
                           <li>Engineering & Technical Roles</li>
                           <li>Environmental & Sustainability Positions</li>
@@ -112,10 +114,10 @@
              <section id="contact" class="contact-section fade-in-section flip-item">
                   <div class="container">
                        <h1>Contact</h1>
-                       <p>Have questions? Reach out to TotalEnergies.</p>
+                       <p>Have questions? Reach out to Energy for Africa.</p>
                        {% with messages = get_flashed_messages() %}
                           {% if messages %}
-                            <ul class="fash-messages">
+                            <ul class="flash-messages">
                               {% for message in messages %}
                                 <li>{{ message }}</li>
                               {% endfor %}
@@ -137,7 +139,7 @@
              <section id="services" class="services-section fade-in-section flip-item">
                    <div class="container">
                         <h1>Services</h1>
-                        <p>Discover how TotalEnergies is driving innovation across multiple energy sectors.</p>
+                        <p>Discover how Energy for Africa is driving innovation across multiple energy sectors.</p>
                         <ul>
                            <li>Renewable Energy Solutions (Solar, Wind, Bioenergy)</li>
                            <li>Oil & Gas Exploration and Production</li>
@@ -154,16 +156,16 @@
                <p>Explore our projects and moments in images.</p>
                <ul class="image-gallery">
                     <li>
-                    <img src="{{ url_for('static', filename='myphoto1.jpg') }}" alt="TotalEnergies photo">
+                    <img src="{{ url_for('static', filename='myphoto1.jpg') }}" alt="Energy for Africa photo">
                     </li>
                     <li>
-                    <img src="{{ url_for('static', filename='myphoto2.jpg') }}" alt="TotalEnergies photo">
+                    <img src="{{ url_for('static', filename='myphoto2.jpg') }}" alt="Energy for Africa photo">
                     </li>
                     <li>
-                    <img src="{{ url_for('static', filename='myphoto3.jpg') }}" alt="TotalEnergies photo">
+                    <img src="{{ url_for('static', filename='myphoto3.jpg') }}" alt="Energy for Africa photo">
                     </li>
                     <li>
-                    <img src="{{ url_for('static', filename='myphoto4.jpg') }}" alt="TotalEnergies photo">
+                    <img src="{{ url_for('static', filename='myphoto4.jpg') }}" alt="Energy for Africa photo">
                     </li>
                </ul>
                </div>
@@ -171,7 +173,7 @@
              <script src="{{ url_for('static', filename='script.js') }}" defer></script>
              <!-- Footer -->
              <footer class="container">
-                  <p>&copy; 2025 TotalEnergies. All rights reserved.</p>
+                  <p>&copy; 2025 Energy for Africa. All rights reserved.</p>
              </footer>
         </body>
  </html>
