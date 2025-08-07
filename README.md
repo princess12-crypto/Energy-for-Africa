@@ -18,7 +18,7 @@
 
 ## 🚀 Live Demo
 
-🔗 [Visit Energy for Africa Live](https://energy-for-africa.up.railway.app)
+🔗 [Visit Energy for Africa Live]web-production-76476.up.railway.app
 
 ---
 
