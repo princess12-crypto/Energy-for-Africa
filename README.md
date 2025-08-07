@@ -20,7 +20,7 @@ A full-stack web app built with **Flask**, **MySQL**, and **SMTP email integrati
 
 ## 🔗 Live Project
 
-👉 👉 [View Live Project on Railway](https://energy-for-africa.up.railway.app)
+👉 👉 👉 [Visit the Live Site](https://web-production-76476.up.railway.app)
 
 ## 📂 Folder Structure
 
