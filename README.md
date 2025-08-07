@@ -2,7 +2,7 @@
 
 **Energy for Africa** is a modern web platform built to promote awareness, innovation, and collaboration around sustainable energy solutions across the African continent.
 
-> Built with Flask, MySQL, and deployed via [Railway](https://railway.app).
+> Built with Flask, MySQL, and deployed via [Railway](https://railway.app)
 
 ---
 
@@ -18,7 +18,7 @@
 
 ## 🚀 Live Demo
 
-🔗 [Visit Energy for Africa Live]web-production-76476.up.railway.app
+🔗 web-production-76476.up.railway.app
 
 ---
 
