@@ -91,13 +91,13 @@ On Railway, go to the Environment tab to set these variables securely.
 
 
 👨‍💻 Author
-Celestine Justice
+Nkwo Celestine Justice
 Full-Stack Web Developer
 📍 Rivers State, Nigeria
 📫 celestinejustice4@gmail.com
 Call: 07032715779
-School: university of portharout
-Occupation: unique student
+School: University Of Port Harcourt
+Occupation: Unique Student
 
 🏁 Submission
 This project was submitted for the Railway User Hackathon – August 2025.
