@@ -9,7 +9,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 import os
-import traceback  # NEW
+import traceback
 
 # 🔑 Load environment variables
 load_dotenv()
@@ -22,20 +22,15 @@ ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "password")
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "default_secret_key")
 
-# 🔗 MySQL connection
-try:
-    conn = mysql.connector.connect(
+# 🔌 MySQL Connection Helper
+def get_mysql_connection():
+    return mysql.connector.connect(
         host=os.getenv("MYSQLHOST"),
         user=os.getenv("MYSQLUSER"),
         password=os.getenv("MYSQLPASSWORD"),
         database=os.getenv("MYSQLDATABASE"),
         port=int(os.getenv("MYSQLPORT", 3306))
     )
-    cursor = conn.cursor(dictionary=True)
-    print("✅ Connected to MySQL successfully")
-except Exception as e:
-    print(f"❌ Failed to connect to MySQL: {e}")
-    traceback.print_exc()  # NEW
 
 # ✉️ Send Email Function
 def send_email(to_email, subject, content):
@@ -60,7 +55,7 @@ def send_email(to_email, subject, content):
         print(f"📨 Email sent to {to_email}")
     except Exception as e:
         print(f"❌ Email sending failed: {e}")
-        traceback.print_exc()  # NEW
+        traceback.print_exc()
 
 # 🏠 Home Route
 @app.route('/')
@@ -75,14 +70,18 @@ def submit_form():
     message = request.form.get('message')
 
     try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
         sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
-        values = (name, email, message)
-        cursor.execute(sql, values)
+        cursor.execute(sql, (name, email, message))
         conn.commit()
+        cursor.close()
+        conn.close()
     except Exception as e:
         print(f"❌ Failed to insert data into MySQL: {e}")
-        traceback.print_exc()  # NEW
+        traceback.print_exc()
 
+    # Send confirmation email to user
     user_content = f"""
     <p>Hello {name},</p>
     <p>Thank you for contacting Energy for Africa. We received your message:</p>
@@ -92,6 +91,7 @@ def submit_form():
     """
     send_email(email, "Message Received - Energy for Africa", user_content)
 
+    # Send notification to admin
     admin_content = f"""
     <h3>New Contact Form Submission</h3>
     <p><strong>Name:</strong> {name}</p>
@@ -118,21 +118,24 @@ def admin_login():
             return redirect(url_for('admin_login'))
     return render_template('login.html')
 
-# 🧲 Admin Dashboard Route (IMPROVED)
+# 🧲 Admin Dashboard Route
 @app.route('/admin-dashboard')
 def admin_dashboard():
     if not session.get('admin_logged_in'):
         return redirect(url_for('admin_login'))
 
     try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor(dictionary=True)
         cursor.execute("SELECT name, email, message FROM contact_form ORDER BY id DESC")
         messages = cursor.fetchall()
-        print(f"✅ Retrieved {len(messages)} messages from database.")
+        cursor.close()
+        conn.close()
         return render_template('admin.html', messages=messages)
     except Exception as e:
-        print(f"❌ Error in /admin-dashboard route: {e}")
-        traceback.print_exc()  # NEW
-        return f"❌ Admin dashboard failed: {e}"
+        print(f"❌ Error in /admin-dashboard: {e}")
+        traceback.print_exc()
+        return "❌ Failed to load admin dashboard."
 
 # 📩 Reply Route
 @app.route('/reply', methods=['POST'])
@@ -150,7 +153,7 @@ def reply():
         flash("Reply sent successfully.")
     except Exception as e:
         print(f"❌ Failed to send reply: {e}")
-        traceback.print_exc()  # NEW
+        traceback.print_exc()
         flash("An error occurred while sending the reply.")
 
     return redirect(url_for('admin_dashboard'))
@@ -162,7 +165,7 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for('admin_login'))
 
-# ✅ Health Check Route (Optional)
+# ✅ Health Check Route
 @app.route('/health')
 def health():
     return "✅ App is running"
