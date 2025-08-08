@@ -100,6 +100,7 @@ School: University Of Port Harcourt
 Occupation: Unique Student
 
 🏁 Submission
-This project was submitted for the Railway User Hackathon – August 2025.
+This project was submitted for the Railway User Hackathon – August 2025. 
+Energy for Africa is a professionally designed, full-stack web app built with Flask + MySQL. It features a contact form that stores user data in a Railway-hosted MySQL database and sends real-time confirmation emails using Brevo SMTP. Fully responsive, deploy-ready, and built with care for Africa’s energy vision.
 # 4. Run the Flask app
 python app.py
