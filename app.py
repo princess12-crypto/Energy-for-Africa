@@ -66,7 +66,7 @@ def send_email(to_email, subject, content):
 def home():
     return render_template('index.html')
 
-# 📬 Submit Form Route
+# 📬 Submit Form Route (UPDATED)
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
     name = request.form.get('name')
@@ -75,15 +75,19 @@ def submit_form():
 
     try:
         conn = get_mysql_connection()
+        conn.ping(reconnect=True)  # ✅ Ensure MySQL connection is alive
         cursor = conn.cursor()
+
         sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
         cursor.execute(sql, (name, email, message))
         conn.commit()
         cursor.close()
         conn.close()
-    except Exception as e:
-        print(f"❌ Failed to insert data into MySQL: {e}")
+    except mysql.connector.Error as err:
+        print(f"❌ Failed to insert data into MySQL: {err}")
         traceback.print_exc()
+        flash("An error occurred while submitting your message.")
+        return redirect(url_for('home'))
 
     # Send confirmation email to user
     user_content = f"""
