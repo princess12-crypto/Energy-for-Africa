@@ -135,7 +135,7 @@ def admin_dashboard():
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT name, email, message FROM contact_form ORDER BY id DESC")
+        cursor.execute("SELECT id, name, email, message FROM contact_form ORDER BY id DESC")  # Include `id`
         messages = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -163,6 +163,28 @@ def reply():
         print(f"❌ Failed to send reply: {e}")
         traceback.print_exc()
         flash("An error occurred while sending the reply.")
+
+    return redirect(url_for('admin_dashboard'))
+
+# 🗑 Delete Message Route (TEMPORARY - secure this!)
+@app.route('/delete/<int:message_id>', methods=['POST'])
+def delete_message(message_id):
+    if not session.get('admin_logged_in'):
+        flash("You must be logged in to delete.")
+        return redirect(url_for('admin_login'))
+
+    try:
+        conn = get_mysql_connection()
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM contact_form WHERE id = %s", (message_id,))
+        conn.commit()
+        cursor.close()
+        conn.close()
+        flash("Message deleted successfully.")
+    except Exception as e:
+        print(f"❌ Failed to delete message: {e}")
+        traceback.print_exc()
+        flash("Failed to delete message.")
 
     return redirect(url_for('admin_dashboard'))
 
