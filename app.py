@@ -25,11 +25,11 @@ app.secret_key = os.getenv("SECRET_KEY", "default_secret_key")
 # 🔌 MySQL Connection Helper
 def get_mysql_connection():
     return mysql.connector.connect(
-        host=os.getenv("MYSQLHOST"),
-        user=os.getenv("MYSQLUSER"),
-        password=os.getenv("MYSQLPASSWORD"),
-        database=os.getenv("MYSQLDATABASE"),
-        port=int(os.getenv("MYSQLPORT", 3306)),
+        host=os.getenv("MYSQL_HOST"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        database=os.getenv("MYSQL_DATABASE"),
+        port=int(os.getenv("MYSQL_PORT", 3306)),
         connection_timeout=10,
         connect_timeout=10,
         autocommit=True,
@@ -66,7 +66,7 @@ def send_email(to_email, subject, content):
 def home():
     return render_template('index.html')
 
-# 📬 Submit Form Route (UPDATED)
+# 📬 Submit Form Route
 @app.route('/submit-form', methods=['POST'])
 def submit_form():
     name = request.form.get('name')
@@ -75,7 +75,7 @@ def submit_form():
 
     try:
         conn = get_mysql_connection()
-        conn.ping(reconnect=True)  # ✅ Ensure MySQL connection is alive
+        conn.ping(reconnect=True)
         cursor = conn.cursor()
 
         sql = "INSERT INTO contact_form (name, email, message) VALUES (%s, %s, %s)"
@@ -99,7 +99,7 @@ def submit_form():
     """
     send_email(email, "Message Received - Energy for Africa", user_content)
 
-    # Send notification to admin
+    # Notify admin
     admin_content = f"""
     <h3>New Contact Form Submission</h3>
     <p><strong>Name:</strong> {name}</p>
@@ -135,7 +135,7 @@ def admin_dashboard():
     try:
         conn = get_mysql_connection()
         cursor = conn.cursor(dictionary=True)
-        cursor.execute("SELECT id, name, email, message FROM contact_form ORDER BY id DESC")  # Include `id`
+        cursor.execute("SELECT id, name, email, message FROM contact_form ORDER BY id DESC")
         messages = cursor.fetchall()
         cursor.close()
         conn.close()
@@ -166,7 +166,7 @@ def reply():
 
     return redirect(url_for('admin_dashboard'))
 
-# 🗑 Delete Message Route (TEMPORARY - secure this!)
+# 🗑 Delete Message Route
 @app.route('/delete/<int:message_id>', methods=['POST'])
 def delete_message(message_id):
     if not session.get('admin_logged_in'):
