@@ -1,6 +1,3 @@
-# Rebranded: Energy for Africa Admin Dashboard
-
-# 📦 Imports
 from flask import Flask, render_template, request, redirect, flash, url_for, session
 import mysql.connector
 from mysql.connector import pooling
@@ -37,7 +34,10 @@ connection_pool = pooling.MySQLConnectionPool(pool_name="mypool",
 def get_mysql_connection():
     conn = connection_pool.get_connection()
     # Ping with reconnect True to avoid timeout disconnect
-    conn.ping(reconnect=True, attempts=3, delay=2)
+    try:
+        conn.ping(reconnect=True, attempts=3, delay=2)
+    except Exception as e:
+        print(f"❌ Error pinging MySQL connection: {e}")
     return conn
 
 def send_email(to_email, subject, content):
@@ -86,8 +86,11 @@ def submit_form():
         flash("An error occurred while submitting your message.")
         return redirect(url_for('home'))
     finally:
-        cursor.close()
-        conn.close()
+        try:
+            cursor.close()
+            conn.close()
+        except Exception:
+            pass
 
     # Send confirmation email to user
     user_content = f"""
@@ -140,8 +143,11 @@ def admin_dashboard():
         traceback.print_exc()
         return "❌ Failed to load admin dashboard."
     finally:
-        cursor.close()
-        conn.close()
+        try:
+            cursor.close()
+            conn.close()
+        except Exception:
+            pass
 
     return render_template('admin.html', messages=messages)
 
@@ -182,8 +188,11 @@ def delete_message(message_id):
         traceback.print_exc()
         flash("Failed to delete message.")
     finally:
-        cursor.close()
-        conn.close()
+        try:
+            cursor.close()
+            conn.close()
+        except Exception:
+            pass
 
     return redirect(url_for('admin_dashboard'))
 
